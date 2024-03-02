@@ -23,7 +23,7 @@ export default function CreateTournamentForm() {
     })
   }
 
-  async function getGameName(gameName: string) {
+  async function getGameName(gameId: number) {
     await fetch(`/api/covers/${gameId}`, {
       method: 'POST',
     })
@@ -112,7 +112,7 @@ export default function CreateTournamentForm() {
                 type="number"
                 required
                 placeholder="4"
-                onChange={e => getGameCover(e.target.value)}
+                onChange={(e) => getGameCover(Number((e.target as HTMLInputElement).value))}
               />
             </div>
 

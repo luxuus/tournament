@@ -6,5 +6,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: '/tournaments/:path*',
+    matcher: '/about/:path*',
 }
