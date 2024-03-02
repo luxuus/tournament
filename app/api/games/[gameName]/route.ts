@@ -1,17 +1,21 @@
-export async function POST({ params }: { params: { id: string }}) {
+import { NextRequest, NextResponse } from 'next/server';
 
-    const res = await fetch('https://api.igdb.com/v4/games', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + process.env.AUTHORIZATION || '',
-        'Client-ID': process.env.IGDB_CLIENT_ID || '',
-        'x-api-key': process.env.AWS_DEFAULT_KEY || '',
-      },
-      body: `fields *; where name=${params.id}`,
-    })
+export async function POST(request: NextRequest) {
 
-    const data = await res.json()
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
 
+    const response = await fetch('https://api.igdb.com/v4/games', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + (process.env.AUTHORIZATION || ''),
+            'Client-ID': process.env.IGDB_CLIENT_ID || '',
+            'x-api-key': process.env.AWS_DEFAULT_KEY || '',
+        },
+        body: `fields *; where name="${id}";`,
+    });
+
+    const data = await response.json()
     return Response.json(data)
 }
