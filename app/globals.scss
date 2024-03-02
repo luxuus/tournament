@@ -31,4 +31,15 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  input {
+
+    @apply p-2 bg-neutral-800 rounded-sm;
+
+    &:focus {
+      outline: 2px solid white;
+    }
+  }
+
+  
 }

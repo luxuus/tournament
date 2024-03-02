@@ -1,6 +1,8 @@
-import Button from "@/components/ui/buttons";
 import Footer from "@/components/ui/footer";
 import Header from "@/components/ui/header";
+import DefaultLink from "@/components/ui/links/default";
+import DisabledLink from "@/components/ui/links/disabled";
+import RedirectLink from "@/components/ui/links/redirect";
 import hero from "@/public/images/hero.png";
 import Image from "next/image";
 
@@ -11,7 +13,6 @@ export default function Home() {
 
       <main className="flex justify-center flex-col gap-8 p-7 max-w-6xl ">
         <h1 className="text-5xl flex ">Last One Standing</h1>
-
         <div className="flex border border-neutral-700">
           <div className="flex flex-col gap-9 flex-1 p-4 justify-between">
             <div className="flex flex-col gap-10">
@@ -58,17 +59,15 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <Button name={"Create"} fill={true} />
-              <Button name={"Join Tournaments"} fill={false} />
+            <div className="flex justify-between">
+              <div className="flex gap-4">
+                <DefaultLink name={"Create"} url={"/tournaments/create"} />
+                <RedirectLink name={"Join Tournaments"} url={"/tournaments/create"} />
+              </div>
+              <div className="flex">
+                <DisabledLink name={"Premium (soon)"} />
+              </div>
             </div>
-          </div>
-          <div className="flex-1 relative">
-            <Image
-              src={hero}
-              alt=""
-              className="select-none h-full object-cover"
-            />
           </div>
         </div>
       </main>
