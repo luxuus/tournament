@@ -1,69 +1,74 @@
 import Button from "@/components/ui/buttons";
-import { log } from "console";
 import { useState } from "react";
+import DefaultSubmitButton from "../buttons/submit";
 
-type Game = {
-  name: string
-  first_release_date: string
-}
+// type Game = {
+//   name: string
+//   first_release_date: string
+// }
 
 
 export default function CreateTournamentForm() {
 
-  const [gameName, setGameName] = useState<Game[]>([])
+  // const [gameName, setGameName] = useState<Game[]>([])
 
-  async function getGameNames() {
+  // async function getGameNames() {
 
-    await fetch('/api/games', {
-      method: 'POST'
-    })
-    .then(res => res.json())
-    .then(data => {
-      setGameName(data)
-    })
-  }
+  //   await fetch('/api/games', {
+  //     method: 'POST'
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setGameName(data)
+  //   })
+  // }
 
-  async function getGameName(gameId: number) {
-    await fetch(`/api/covers/${gameId}`, {
-      method: 'POST',
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    })
-  }
+  // async function getGameName(gameId: number) {
+  //   await fetch(`/api/covers/${gameId}`, {
+  //     method: 'POST',
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  // }
 
-  async function getGameCover(gameId: number) {
-    await fetch(`/api/covers/${gameId}`, {
-      method: 'POST',
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    })
-  }
+  // async function getGameCover(gameId: number) {
+  //   await fetch(`/api/covers/${gameId}`, {
+  //     method: 'POST',
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  // }
 
-  async function getGameCoverAll() {
-    await fetch(`/api/covers/`, {
-      method: 'POST'
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-    })
+  // async function getGameCoverAll() {
+  //   await fetch(`/api/covers/`, {
+  //     method: 'POST'
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log(data)
+  //   })
+  // }
+
+  async function createTournament(formData: FormData) {
+    const rawFormData = Object.fromEntries(formData.entries())
+    console.log(rawFormData);
   }
 
   return (
     <div className="flex border border-neutral-700 p-4">
       <fieldset className="flex flex-1">
-        <form className="flex flex-1 flex-col gap-10 justify-between">
+        <form className="flex flex-1 flex-col gap-10 justify-between" action={createTournament}>
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-2">
-              <label htmlFor="tournament_name" className="text-lg">
+              <label htmlFor="name" className="text-lg">
                 Tournament Name :
               </label>
               <input
-                id="tournament_name"
+                name="name"
                 type="text"
                 required
                 placeholder="Choose a tournament name"
@@ -71,64 +76,73 @@ export default function CreateTournamentForm() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="tournament_game" className="text-lg">
+              <label htmlFor="startDate" className="text-lg">
+                Start date :
+              </label>
+              <input
+                name="startDate"
+                type="datetime-local"
+                required
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label htmlFor="game" className="text-lg">
                 Game : 
               </label>
               <input
-                id="tournament_game"
+                name="game"
                 type="search"
                 required
                 placeholder="Choose a game"
-                onChange={getGameNames}
+                // onChange={getGameNames}
               />
-              <div>
+              {/* <div>
                 {gameName.map((game, index) => (
                   <ul key={index}>
                     <li>{game.name}</li>
                   </ul>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="tournament_description" className="text-lg">
+              <label htmlFor="description" className="text-lg">
                 Description :
               </label>
               <input
-                id="tournament_description"
+                name="description"
                 type="textarea"
-                required
                 placeholder="Choose a tournament description"
-                
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="tournament_rounds" className="text-lg">
+              <label htmlFor="rounds" className="text-lg">
                 Number of Rounds :
               </label>
               <input
-                id="tournament_rounds"
+                name="rounds"
                 type="number"
                 required
                 placeholder="4"
-                onChange={(e) => getGameCover(Number((e.target as HTMLInputElement).value))}
+                // onChange={(e) => getGameCover(Number((e.target as HTMLInputElement).value))}
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="tournament_player_limit" className="text-lg">
+              <label htmlFor="playersLimit" className="text-lg">
                 Players Limit :
               </label>
               <input
-                id="tournament_player_limit"
+                name="playersLimit"
                 type="number"
                 required
                 placeholder="10"
               />
             </div>
           </div>
-          <Button url={"/"} name={"Create"} fill={true} />
+          <DefaultSubmitButton name="Create" />
         </form>
       </fieldset>
 

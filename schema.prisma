@@ -7,3 +7,14 @@ datasource db {
     url = env("POSTGRES_PRISMA_URL")
     directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+model Tournament {
+    id           Int         @id @default(autoincrement())
+    name         String
+    startDate    DateTime
+    game         String
+    description  String?
+    rounds       Int
+    playersLimit Int
+    createdAt    DateTime    @default(now())
+}
